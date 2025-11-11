@@ -1,15 +1,17 @@
 #include "TextureManager.h"
 
+SDL_Renderer* TextureManager::gRenderer = NULL;
+
 SDL_Texture* TextureManager::loadTexture(std::string path)
 {
-	// Check Renderer
+	//// Check Renderer
 	//if (gRenderer == NULL) {
-
+	//	return NULL;
 	//}
 
 	SDL_Texture* newTexture = IMG_LoadTexture(gRenderer, path.c_str());
 	if (newTexture == NULL) {
-		Game().SDL_IMG_PrintError("Unable to create texture from %s!", path.c_str());
+		GameErrors().SDL_IMG_PrintError("Unable to create texture from %s!", path.c_str());
 	}
 	return newTexture;
 }
@@ -23,6 +25,10 @@ TextureManager::TextureManager()
 	pathList = NULL;
 	textureList = NULL;
 	textureListSize = 0;
+}
+
+TextureManager::~TextureManager()
+{
 }
 
 void TextureManager::setAssetBasePath(std::string path)

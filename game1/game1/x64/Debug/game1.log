@@ -1,6 +1,2 @@
-﻿  Game.cpp
-C:\Users\dento\source\repos\SDL_projects\game1\game1\Game.cpp(82,29): error C2061: syntax error: identifier 'TextureManager'
-  TextureManager.cpp
-C:\Users\dento\source\repos\SDL_projects\game1\game1\TextureManager.cpp(5,44): error C2065: 'gRenderer': undeclared identifier
-C:\Users\dento\source\repos\SDL_projects\game1\game1\TextureManager.cpp(7,3): error C3861: 'SDL_IMG_PrintError': identifier not found
-  Generating Code...
+﻿  Player.cpp
+  game1.vcxproj -> C:\Users\dento\source\repos\SDL_projects\game1\x64\Debug\game1.exe

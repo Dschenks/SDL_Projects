@@ -11,6 +11,9 @@
 * renderer from the main game loop and render appropriately to it.
 */
 #include <SDL.h>
+#include "GameTypes.h"
+#include "GameObjectCallbacks.h"
+#include "TextureManager.h"
 
 class GameObject
 {
@@ -31,8 +34,29 @@ public:
 	int getW() const;
 	int getH() const;
 
-	void move();	// todo: make a callback from a parent component class
-	void render();	// todo: make a callback from a parent component class
+	GameObjectCallbacks* getGameObjCallbacks() { return callbacks; }
+
+	// makes a callback from a parent component class e.g. goomba class has an object and tick will be called from GameObject and handled in Goomba class
+	void init(WindowScreen* windowScreen, TextureManager* textureManager)
+	{
+		callbacks->init(windowScreen, textureManager);
+	}
+	void close()
+	{
+		callbacks->close();
+	}
+	void tick()
+	{
+		callbacks->tick();
+	}
+	void render()
+	{
+		callbacks->render();
+	}
+	void move(GameTypes::move_dir_t moveDir)
+	{
+		callbacks->move(moveDir);
+	}
 
 protected:
 private:
@@ -45,5 +69,7 @@ private:
 	int w, h;
 	SDL_Rect* gRect;
 	SDL_Texture* gTexture;
+
+	GameObjectCallbacks* callbacks;
 };
 

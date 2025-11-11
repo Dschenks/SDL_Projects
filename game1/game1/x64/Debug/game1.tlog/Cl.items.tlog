@@ -1,3 +1,11 @@
-C:\Users\dento\source\repos\SDL_projects\game1\game1\game.cpp;C:\Users\dento\source\repos\SDL_projects\game1\game1\x64\Debug\game.obj
-C:\Users\dento\source\repos\SDL_projects\game1\game1\gameObject.cpp;C:\Users\dento\source\repos\SDL_projects\game1\game1\x64\Debug\gameObject.obj
+C:\Users\dento\source\repos\SDL_projects\game1\game1\Callback.cpp;C:\Users\dento\source\repos\SDL_projects\game1\game1\x64\Debug\Callback.obj
+C:\Users\dento\source\repos\SDL_projects\game1\game1\Game.cpp;C:\Users\dento\source\repos\SDL_projects\game1\game1\x64\Debug\Game.obj
+C:\Users\dento\source\repos\SDL_projects\game1\game1\GameErrors.cpp;C:\Users\dento\source\repos\SDL_projects\game1\game1\x64\Debug\GameErrors.obj
+C:\Users\dento\source\repos\SDL_projects\game1\game1\GameObject.cpp;C:\Users\dento\source\repos\SDL_projects\game1\game1\x64\Debug\GameObject.obj
+C:\Users\dento\source\repos\SDL_projects\game1\game1\GameObjectCallbacks.cpp;C:\Users\dento\source\repos\SDL_projects\game1\game1\x64\Debug\GameObjectCallbacks.obj
+C:\Users\dento\source\repos\SDL_projects\game1\game1\GameScreen.cpp;C:\Users\dento\source\repos\SDL_projects\game1\game1\x64\Debug\GameScreen.obj
+C:\Users\dento\source\repos\SDL_projects\game1\game1\GameScreenManager.cpp;C:\Users\dento\source\repos\SDL_projects\game1\game1\x64\Debug\GameScreenManager.obj
 C:\Users\dento\source\repos\SDL_projects\game1\game1\main.cpp;C:\Users\dento\source\repos\SDL_projects\game1\game1\x64\Debug\main.obj
+C:\Users\dento\source\repos\SDL_projects\game1\game1\Player.cpp;C:\Users\dento\source\repos\SDL_projects\game1\game1\x64\Debug\Player.obj
+C:\Users\dento\source\repos\SDL_projects\game1\game1\TextureManager.cpp;C:\Users\dento\source\repos\SDL_projects\game1\game1\x64\Debug\TextureManager.obj
+C:\Users\dento\source\repos\SDL_projects\game1\game1\WindowScreen.cpp;C:\Users\dento\source\repos\SDL_projects\game1\game1\x64\Debug\WindowScreen.obj

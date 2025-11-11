@@ -4,6 +4,7 @@ GameObject::GameObject() :
 	x(DEFAULT_X), y(DEFAULT_Y), w(DEFAULT_W), h(DEFAULT_H), gTexture(NULL)
 {
 	gRect = new SDL_Rect { x, y, w, h };
+	callbacks = new GameObjectCallbacks();
 }
 
 GameObject::GameObject(int x, int y, int w, int h) : 
@@ -14,8 +15,8 @@ GameObject::GameObject(int x, int y, int w, int h) :
 
 GameObject::~GameObject()
 {
-	delete gRect;
-	delete gTexture;
+	//delete gRect;
+	//delete gTexture;
 }
 
 void GameObject::setX(int x)
@@ -56,12 +57,4 @@ int GameObject::getW() const
 int GameObject::getH() const
 {
 	return h;
-}
-
-void GameObject::move()
-{
-}
-
-void GameObject::render()
-{
 }

@@ -132,15 +132,30 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Callback.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameErrors.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GameObjectCallbacks.cpp" />
+    <ClCompile Include="GameScreen.cpp" />
+    <ClCompile Include="GameScreenManager.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="TextureManager.cpp" />
+    <ClCompile Include="WindowScreen.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Callback.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="GameErrors.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GameObjectCallbacks.h" />
+    <ClInclude Include="GameScreen.h" />
+    <ClInclude Include="GameScreenManager.h" />
+    <ClInclude Include="GameTypes.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="TextureManager.h" />
+    <ClInclude Include="WindowScreen.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

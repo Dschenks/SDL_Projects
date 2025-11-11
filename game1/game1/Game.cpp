@@ -1,4 +1,5 @@
 #include "game.h"
+#include "WindowScreen.h"
 
 Game::Game()
 {
@@ -9,18 +10,21 @@ Game::Game()
 	gameStartTick = std::chrono::high_resolution_clock::time_point();
 	lastFrameTick = std::chrono::milliseconds();
 
-	screenWidth = DEFAULT_SCREEN_WIDTH;
-	screenHeight = DEFAULT_SCREEN_HEIGHT;
+	frameRate = DEFAULT_FPS;
+	frameMs = fps2ms(frameRate);
 
-	TextureManager = NULL;
+	WindowScreen().setScreenWidth(DEFAULT_SCREEN_WIDTH);
+	WindowScreen().setScreenHeight(DEFAULT_SCREEN_HEIGHT);
+
+	textureManager = NULL;
+
+	gameScreen = NULL;
 }
 
 Game::Game(int screenWidth, int screenHeight) : Game()
 {
-	this->screenWidth = screenWidth;
-	this->screenHeight = screenHeight;
-
-	TextureManager = NULL;
+	WindowScreen().setScreenWidth(screenWidth);
+	WindowScreen().setScreenHeight(screenHeight);
 }
 
 Game::~Game()
@@ -32,7 +36,7 @@ int Game::_init_SDL()
 	int ret = 0;
 
 	if ((ret = SDL_Init(SDL_INIT_VIDEO)) < 0) {
-		SDL_PrintError("SDL could not initialize! SDL Error: %s\n");
+		GameErrors().SDL_PrintError("SDL could not initialize! SDL Error: %s\n");
 		return ret;
 	}
 
@@ -49,7 +53,7 @@ int Game::_init_SDL_IMG()
 
 	int imagFlags = IMG_INIT_PNG;
 	if (!(IMG_Init(imagFlags) & imagFlags)) {
-		SDL_IMG_PrintError("SDL_image could not initialize!");
+		GameErrors().SDL_IMG_PrintError("SDL_image could not initialize!");
 		return -1;
 	}
 
@@ -62,15 +66,15 @@ int Game::init()
 	// SDL init
 	if ((ret = _init_SDL()) < 0) return ret;
 	// Setup window
-	gWindow = SDL_CreateWindow("GAME", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, screenWidth, screenHeight, SDL_WINDOW_SHOWN);
+	gWindow = SDL_CreateWindow("GAME", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, WindowScreen().getScreenWidth(), WindowScreen().getScreenHeight(), SDL_WINDOW_SHOWN);
 	if (gWindow == NULL) {
-		SDL_PrintError("Window could not be created!");
+		GameErrors().SDL_PrintError("Window could not be created!");
 		return -1;
 	}
 	// Setup Renderer
 	gRenderer = SDL_CreateRenderer(gWindow, -1, SDL_RENDERER_ACCELERATED);
 	if (gRenderer == NULL) {
-		SDL_PrintError("Renderer could not be created!");
+		GameErrors().SDL_PrintError("Renderer could not be created!");
 		return false;
 	}
 
@@ -79,7 +83,14 @@ int Game::init()
 	if ((ret = _init_SDL_IMG()) < 0) return ret;
 
 	// Init Texture Manager
-	this->TextureManager = new TextureManager();
+	this->textureManager = new TextureManager;
+	textureManager->setRenderer(gRenderer);
+
+	// Init frame clocks
+	gameStartTick = std::chrono::high_resolution_clock::now();
+	lastFrameTick = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - gameStartTick);
+
+	isRunning = true;
 
 	return ret;
 }
@@ -95,6 +106,7 @@ void Game::close()
 	* 6. Quit SDL
 	*/
 	// Destroy Textures
+	gameScreen->close();
 
 	SDL_DestroyRenderer(gRenderer);
 	SDL_DestroyWindow(gWindow);
@@ -106,13 +118,17 @@ void Game::close()
 	SDL_Quit();
 }
 
-void Game::setFrameRate()
+std::chrono::milliseconds Game::fps2ms(Game::fps fps)
 {
+	return std::chrono::milliseconds((1000 / fps));
 }
 
-int Game::getFrameRate()
+void Game::setFrameRate(Game::fps fps)
 {
-	return 0;
+	if (fps > 200) return;
+
+	frameRate = fps;
+	frameMs = fps2ms(fps);
 }
 
 std::chrono::milliseconds Game::getCurrentTick() const
@@ -121,12 +137,68 @@ std::chrono::milliseconds Game::getCurrentTick() const
 	// return std::chrono::milliseconds();
 }
 
-void Game::tick()
+bool Game::tick()
 {
+	if (!isRunning) return false;
+
+	std::chrono::milliseconds currentTick = getCurrentTick();
+	if ((currentTick - lastFrameTick) > frameMs) {
+		readInput();
+		update();
+		renderFrame();
+		lastFrameTick = currentTick;
+	}
+
+	return true;
+}
+
+void Game::mainLoop() {
+	while (isRunning) {
+		std::chrono::milliseconds currentTick = getCurrentTick();
+		if ((currentTick - lastFrameTick) > frameMs) {
+			readInput();
+			update();
+			renderFrame();
+			lastFrameTick = currentTick;
+		}
+	}
 }
 
 void Game::readInput()
 {
+	SDL_Event event;
+	
+	while (SDL_PollEvent(&event) != 0) {
+		SDL_Keycode keyPressed = SDLK_UNKNOWN;
+
+		switch (event.type) {
+		case SDL_QUIT:
+			isRunning = false;
+			break;
+		case SDL_KEYDOWN:
+		{
+			switch (event.key.keysym.sym) {
+			case SDLK_UP:
+				gameScreen->readInput(GameTypes::MOVE_DIR_UP);
+				break;
+			case SDLK_RIGHT:
+				gameScreen->readInput(GameTypes::MOVE_DIR_RIGHT);
+				break;
+			case SDLK_DOWN:
+				gameScreen->readInput(GameTypes::MOVE_DIR_DOWN);
+				break;
+			case SDLK_LEFT:
+				//keyPressed = (SDL_KeyCode)event.key.keysym.sym;
+				gameScreen->readInput(GameTypes::MOVE_DIR_LEFT);
+				break;
+			default: break;
+			}
+
+			break;
+		}
+		default: break;
+		}
+	}
 }
 
 void Game::update()
@@ -135,38 +207,16 @@ void Game::update()
 
 void Game::renderFrame()
 {
+	SDL_RenderClear(gRenderer);
+	// ADD STUFF TO RENDER WITH PAINTER'S ALGO
+	gameScreen->renderScreen();
+
+	SDL_RenderPresent(gRenderer);
 }
 
-std::string Game::_SDL_FormatErrorMsg(std::string errorMsgFmt, std::string errorMsg)
+void Game::setCurrentScreen(GameScreen* gameScreen)
 {
-	if (errorMsg == "") return "\n";	// If the return string is nothing, don't return a message
-
-	// Create temp C char string to format with the SDL Error Message
-	size_t tempStrSize = errorMsg.size() + errorMsgFmt.size();
-	char* tempStr = new char[tempStrSize];
-
-	int c = snprintf(tempStr, tempStrSize, errorMsgFmt.c_str(), errorMsg.c_str());
-
-	errorMsg = tempStr;		// swap temp with returned string
-	delete[] tempStr;		// cleanup temp string
-
-	return errorMsg;
-}
-
-void Game::SDL_IMG_PrintError(std::string fmt ...)
-{
-	fmt.append(_SDL_FormatErrorMsg(" SDL_image Error: %s\n", IMG_GetError()));
-	va_list args;
-	va_start(args, fmt);
-	vfprintf(stdout, fmt.c_str(), args);
-	va_end(args);
-}
-
-void Game::SDL_PrintError(std::string fmt ...)
-{
-	fmt.append(_SDL_FormatErrorMsg(" SDL Error: %s\n", SDL_GetError()));
-	va_list args;
-	va_start(args, fmt);
-	vfprintf(stdout, fmt.c_str(), args);
-	va_end(args);
+	if (this->gameScreen != NULL) this->gameScreen->close();
+	this->gameScreen = gameScreen;
+	this->gameScreen->init(&windowScreen, textureManager);
 }
