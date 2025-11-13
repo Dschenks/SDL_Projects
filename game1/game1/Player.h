@@ -57,6 +57,9 @@ private:
 
 	int scaleUp;
 
+	double rotation;
+	SDL_RendererFlip flipType;
+
 	SDL_Texture* gTexture;
 	SDL_Rect srcRect, destRect;
 };

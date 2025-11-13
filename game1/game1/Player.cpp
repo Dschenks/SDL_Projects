@@ -31,6 +31,9 @@ Player::Player() :
 	spriteRunningLeft2Path = "";
 
 	scaleUp = 1;
+
+	rotation = 0;
+	flipType = SDL_FLIP_NONE;
 }
 
 void Player::setSprite(std::string path, uint32_t spriteAssetFlag)
@@ -105,7 +108,11 @@ void Player::render()
 	}
 	playerMoved = false;
 
-	SDL_RenderCopy(gRenderer, gTexture, NULL, &destRect);
+	//SDL_RenderCopy(gRenderer, gTexture, NULL, &destRect);
+	SDL_RenderCopyEx(gRenderer, gTexture, NULL, &destRect, rotation, NULL, flipType);
+
+	rotation = 0;
+	flipType = SDL_FLIP_NONE;
 }
 
 void Player::move(GameTypes::move_dir_t moveDir)
@@ -119,7 +126,18 @@ void Player::move(GameTypes::move_dir_t moveDir)
 		destRect.y += 4;
 		break;
 	case GameTypes::MOVE_DIR_RIGHT:
-		destRect.x += (4 * scaleUp/2);
+		if (b && lastMovement == GameTypes::MOVE_DIR_RIGHT) {
+			if (spriteRunningLeft2Path != "") loadMedia(spriteRunningLeft2Path);
+			b = false;
+		}
+		else {
+			if (spriteRunningLeft1Path != "") loadMedia(spriteRunningLeft1Path);
+			b = true;
+		}
+
+		destRect.x += (4 * scaleUp/4);
+		flipType = SDL_FLIP_HORIZONTAL;
+
 		break;
 	case GameTypes::MOVE_DIR_LEFT:
 		if (b && lastMovement == GameTypes::MOVE_DIR_LEFT) {
@@ -130,7 +148,7 @@ void Player::move(GameTypes::move_dir_t moveDir)
 			b = true;
 		}
 
-		destRect.x -= (4 * scaleUp/2);
+		destRect.x -= (4 * scaleUp/4);
 		break;
 	default: break;
 	}
@@ -141,6 +159,7 @@ void Player::move(GameTypes::move_dir_t moveDir)
 int Player::loadMedia(std::string path)
 {
 	gTexture = textureManager->loadAssetTexture(path);
+	SDL_SetTextureColorMod(gTexture, 0xFF / 2, 0xFF, 0xFF);
 	if (gTexture == NULL) {
 		printf("Failed to load Player texture image!\n");
 		return -1;
