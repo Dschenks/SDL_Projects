@@ -36,6 +36,7 @@ Player::Player() :
 
 	lastMovement = GameTypes::MOVE_DIR_NONE;
 	playerMoved = false;
+	facingRight = true;
 	playerSpeed.ftps = GameTypes::DEFAULT_PLAYER_SPEED;
 	playerSpeed.pps = GameTypes::speed2pps(playerSpeed.ftps);
 	movementClock = new GameTime;
@@ -136,33 +137,33 @@ void Player::render()
 	destRect.w = frameSprite->srcRect.w * frameSprite->scale * globalScaling;
 	destRect.h = frameSprite->srcRect.h * frameSprite->scale * globalScaling;
 
+	SDL_RendererFlip flip = facingRight ? SDL_FLIP_NONE : SDL_FLIP_HORIZONTAL;
+
 	//SDL_RenderCopy(gRenderer, gTexture, NULL, &destRect);
-	SDL_RenderCopyEx(gRenderer, frameSprite->gTexture, &frameSprite->srcRect, &destRect, frameSprite->rotation, NULL, frameSprite->flip);
+	SDL_RenderCopyEx(gRenderer, frameSprite->gTexture, &frameSprite->srcRect, &destRect, frameSprite->rotation, NULL, flip);
 }
 
 void Player::move(GameTypes::move_dir_t moveDir)
 {
 	SpriteAnimation* spriteAction = nullptr;
-	SpriteTypes::spriteAssetFlags_t spriteFlag;
-	int xMove = 0;
-	int yMove = 0;
+	SpriteTypes::spriteAssetFlags_t spriteFlag = SpriteTypes::SPRITE_RUNNING_RIGHT;
+	static int xMove = 0;
+	static int yMove = 0;
 	int movAmt = globalScaling;
 
 	switch (moveDir) {
 	case GameTypes::MOVE_DIR_UP:
-		spriteFlag = SpriteTypes::SPRITE_RUNNING_UP;
 		yMove -= movAmt;
 		break;
 	case GameTypes::MOVE_DIR_DOWN:
-		spriteFlag = SpriteTypes::SPRITE_RUNNING_DOWN;
 		yMove += movAmt;
 		break;
 	case GameTypes::MOVE_DIR_RIGHT:
-		spriteFlag = SpriteTypes::SPRITE_RUNNING_RIGHT;
+		facingRight = true;
 		xMove += movAmt;
 		break;
 	case GameTypes::MOVE_DIR_LEFT:
-		spriteFlag = SpriteTypes::SPRITE_RUNNING_LEFT;
+		facingRight = false;
 		xMove -= movAmt;
 		break;
 	default: 
@@ -175,6 +176,8 @@ void Player::move(GameTypes::move_dir_t moveDir)
 	if (lastMovement == GameTypes::MOVE_DIR_NONE) {
 		movementClock->resetClock();
 		spriteAction->restartAnimation();
+		xMove = 0;
+		yMove = 0;
 	}
 
 	spriteAction->tick(frameSprite);
@@ -186,6 +189,9 @@ void Player::move(GameTypes::move_dir_t moveDir)
 	destRect.x += xMove;
 	destRect.y += yMove;
 	movementClock->updateFrameTime();
+
+	xMove = 0;
+	yMove = 0;
 }
 
 int Player::loadMedia()

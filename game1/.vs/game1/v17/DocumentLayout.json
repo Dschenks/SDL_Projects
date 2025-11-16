@@ -7,24 +7,16 @@
       "RelativeMoniker": "D:0:0:{6D296821-9D7F-4E6A-8234-8EA543A0F1C5}|game1\\game1.vcxproj|solutionrelative:game1\\Player.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6D296821-9D7F-4E6A-8234-8EA543A0F1C5}|game1\\game1.vcxproj|C:\\Users\\dento\\source\\repos\\SDL_projects\\game1\\game1\\game.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{6D296821-9D7F-4E6A-8234-8EA543A0F1C5}|game1\\game1.vcxproj|solutionrelative:game1\\game.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{6D296821-9D7F-4E6A-8234-8EA543A0F1C5}|game1\\game1.vcxproj|C:\\Users\\dento\\source\\repos\\SDL_projects\\game1\\game1\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{6D296821-9D7F-4E6A-8234-8EA543A0F1C5}|game1\\game1.vcxproj|solutionrelative:game1\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6D296821-9D7F-4E6A-8234-8EA543A0F1C5}|game1\\game1.vcxproj|C:\\Users\\dento\\source\\repos\\SDL_projects\\game1\\game1\\gameTime.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{6D296821-9D7F-4E6A-8234-8EA543A0F1C5}|game1\\game1.vcxproj|solutionrelative:game1\\gameTime.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6D296821-9D7F-4E6A-8234-8EA543A0F1C5}|game1\\game1.vcxproj|C:\\Users\\dento\\source\\repos\\SDL_projects\\game1\\game1\\SpriteAnimation.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{6D296821-9D7F-4E6A-8234-8EA543A0F1C5}|game1\\game1.vcxproj|solutionrelative:game1\\SpriteAnimation.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6D296821-9D7F-4E6A-8234-8EA543A0F1C5}|game1\\game1.vcxproj|C:\\Users\\dento\\source\\repos\\SDL_projects\\game1\\game1\\SpriteAnimation.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{6D296821-9D7F-4E6A-8234-8EA543A0F1C5}|game1\\game1.vcxproj|solutionrelative:game1\\SpriteAnimation.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6D296821-9D7F-4E6A-8234-8EA543A0F1C5}|game1\\game1.vcxproj|C:\\Users\\dento\\source\\repos\\SDL_projects\\game1\\game1\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{6D296821-9D7F-4E6A-8234-8EA543A0F1C5}|game1\\game1.vcxproj|solutionrelative:game1\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{6D296821-9D7F-4E6A-8234-8EA543A0F1C5}|game1\\game1.vcxproj|C:\\Users\\dento\\source\\repos\\SDL_projects\\game1\\game1\\GameTypes.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{6D296821-9D7F-4E6A-8234-8EA543A0F1C5}|game1\\game1.vcxproj|solutionrelative:game1\\GameTypes.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6D296821-9D7F-4E6A-8234-8EA543A0F1C5}|game1\\game1.vcxproj|C:\\Users\\dento\\source\\repos\\SDL_projects\\game1\\game1\\Player.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -35,12 +27,20 @@
       "RelativeMoniker": "D:0:0:{6D296821-9D7F-4E6A-8234-8EA543A0F1C5}|game1\\game1.vcxproj|solutionrelative:game1\\GameTypes.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6D296821-9D7F-4E6A-8234-8EA543A0F1C5}|game1\\game1.vcxproj|C:\\Users\\dento\\source\\repos\\SDL_projects\\game1\\game1\\GameScreenManager.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{6D296821-9D7F-4E6A-8234-8EA543A0F1C5}|game1\\game1.vcxproj|solutionrelative:game1\\GameScreenManager.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{6D296821-9D7F-4E6A-8234-8EA543A0F1C5}|game1\\game1.vcxproj|C:\\Users\\dento\\source\\repos\\SDL_projects\\game1\\game1\\SpriteAnimation.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{6D296821-9D7F-4E6A-8234-8EA543A0F1C5}|game1\\game1.vcxproj|solutionrelative:game1\\SpriteAnimation.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6D296821-9D7F-4E6A-8234-8EA543A0F1C5}|game1\\game1.vcxproj|C:\\Users\\dento\\source\\repos\\SDL_projects\\game1\\game1\\GameTypes.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{6D296821-9D7F-4E6A-8234-8EA543A0F1C5}|game1\\game1.vcxproj|solutionrelative:game1\\GameTypes.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{6D296821-9D7F-4E6A-8234-8EA543A0F1C5}|game1\\game1.vcxproj|C:\\Users\\dento\\source\\repos\\SDL_projects\\game1\\game1\\game.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{6D296821-9D7F-4E6A-8234-8EA543A0F1C5}|game1\\game1.vcxproj|solutionrelative:game1\\game.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6D296821-9D7F-4E6A-8234-8EA543A0F1C5}|game1\\game1.vcxproj|C:\\Users\\dento\\source\\repos\\SDL_projects\\game1\\game1\\SpriteAnimation.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{6D296821-9D7F-4E6A-8234-8EA543A0F1C5}|game1\\game1.vcxproj|solutionrelative:game1\\SpriteAnimation.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6D296821-9D7F-4E6A-8234-8EA543A0F1C5}|game1\\game1.vcxproj|C:\\Users\\dento\\source\\repos\\SDL_projects\\game1\\game1\\GameScreenManager.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{6D296821-9D7F-4E6A-8234-8EA543A0F1C5}|game1\\game1.vcxproj|solutionrelative:game1\\GameScreenManager.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6D296821-9D7F-4E6A-8234-8EA543A0F1C5}|game1\\game1.vcxproj|C:\\Users\\dento\\source\\repos\\SDL_projects\\game1\\game1\\gameTime.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -94,7 +94,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 171,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Document",
@@ -107,25 +107,11 @@
               "ViewState": "AQIAAA8AAAAAAAAAAAAAABEAAAAWAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2025-11-07T13:18:27.766Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "GameScreenManager.h",
-              "DocumentMoniker": "C:\\Users\\dento\\source\\repos\\SDL_projects\\game1\\game1\\GameScreenManager.h",
-              "RelativeDocumentMoniker": "game1\\GameScreenManager.h",
-              "ToolTip": "C:\\Users\\dento\\source\\repos\\SDL_projects\\game1\\game1\\GameScreenManager.h",
-              "RelativeToolTip": "game1\\GameScreenManager.h",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAAVAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-11-11T21:39:11.386Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 5,
               "Title": "GameTypes.cpp",
               "DocumentMoniker": "C:\\Users\\dento\\source\\repos\\SDL_projects\\game1\\game1\\GameTypes.cpp",
               "RelativeDocumentMoniker": "game1\\GameTypes.cpp",
@@ -138,7 +124,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 8,
               "Title": "SpriteAnimation.h",
               "DocumentMoniker": "C:\\Users\\dento\\source\\repos\\SDL_projects\\game1\\game1\\SpriteAnimation.h",
               "RelativeDocumentMoniker": "game1\\SpriteAnimation.h",
@@ -151,29 +137,41 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 4,
               "Title": "Player.h",
               "DocumentMoniker": "C:\\Users\\dento\\source\\repos\\SDL_projects\\game1\\game1\\Player.h",
               "RelativeDocumentMoniker": "game1\\Player.h",
               "ToolTip": "C:\\Users\\dento\\source\\repos\\SDL_projects\\game1\\game1\\Player.h",
               "RelativeToolTip": "game1\\Player.h",
-              "ViewState": "AQIAACEAAAAAAAAAAAAAACYAAAAPAAAA",
+              "ViewState": "AQIAAC8AAAAAAAAAAAAgwD8AAAAWAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2025-11-11T19:07:59.322Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 3,
               "Title": "GameTypes.h",
               "DocumentMoniker": "C:\\Users\\dento\\source\\repos\\SDL_projects\\game1\\game1\\GameTypes.h",
               "RelativeDocumentMoniker": "game1\\GameTypes.h",
               "ToolTip": "C:\\Users\\dento\\source\\repos\\SDL_projects\\game1\\game1\\GameTypes.h",
               "RelativeToolTip": "game1\\GameTypes.h",
-              "ViewState": "AQIAAEUAAAAAAAAAAAAAAFAAAAALAAAA",
+              "ViewState": "AQIAACoAAAAAAAAAAAAQwDAAAAARAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2025-11-11T19:04:22.615Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "GameScreenManager.h",
+              "DocumentMoniker": "C:\\Users\\dento\\source\\repos\\SDL_projects\\game1\\game1\\GameScreenManager.h",
+              "RelativeDocumentMoniker": "game1\\GameScreenManager.h",
+              "ToolTip": "C:\\Users\\dento\\source\\repos\\SDL_projects\\game1\\game1\\GameScreenManager.h",
+              "RelativeToolTip": "game1\\GameScreenManager.h",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAAVAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-11-11T21:39:11.386Z"
             },
             {
               "$type": "Document",
@@ -185,8 +183,7 @@
               "RelativeToolTip": "game1\\gameTime.h",
               "ViewState": "AQIAAAQAAAAAAAAAAAAQwBsAAAAkAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-11-14T15:25:53.354Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-14T15:25:53.354Z"
             },
             {
               "$type": "Document",
@@ -198,8 +195,7 @@
               "RelativeToolTip": "game1\\GameScreen.cpp",
               "ViewState": "AQIAACEAAAAAAAAAAAAAAC8AAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-11-11T19:07:36.791Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-11T19:07:36.791Z"
             },
             {
               "$type": "Document",
@@ -211,8 +207,7 @@
               "RelativeToolTip": "game1\\GameScreenManager.cpp",
               "ViewState": "AQIAAAgAAAAAAAAAAAAkwB8AAAATAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-11-11T21:42:35.637Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-11T21:42:35.637Z"
             },
             {
               "$type": "Document",
@@ -224,8 +219,7 @@
               "RelativeToolTip": "game1\\TextureManager.cpp",
               "ViewState": "AQIAAA8AAAAAAAAAAAAAACkAAAAXAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-11-11T20:22:18.213Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-11T20:22:18.213Z"
             },
             {
               "$type": "Document",
@@ -313,7 +307,7 @@
               "RelativeDocumentMoniker": "game1\\Player.cpp",
               "ToolTip": "C:\\Users\\dento\\source\\repos\\SDL_projects\\game1\\game1\\Player.cpp",
               "RelativeToolTip": "game1\\Player.cpp",
-              "ViewState": "AQIAAI0AAAAAAAAAAAAAAKUAAAASAAAA",
+              "ViewState": "AQIAAJ8AAAAAAAAAAAAAALMAAAAMAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-11-14T15:13:14.764Z",
               "EditorCaption": ""
@@ -326,46 +320,46 @@
               "RelativeDocumentMoniker": "game1\\gameTime.cpp",
               "ToolTip": "C:\\Users\\dento\\source\\repos\\SDL_projects\\game1\\game1\\gameTime.cpp",
               "RelativeToolTip": "game1\\gameTime.cpp",
-              "ViewState": "AQIAAEIAAAAAAAAAAAAkwFYAAAAAAAAA",
+              "ViewState": "AQIAABMAAAAAAAAAAAAkwCQAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-11-14T20:29:11.308Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 7,
               "Title": "Game.cpp",
               "DocumentMoniker": "C:\\Users\\dento\\source\\repos\\SDL_projects\\game1\\game1\\Game.cpp",
               "RelativeDocumentMoniker": "game1\\Game.cpp",
               "ToolTip": "C:\\Users\\dento\\source\\repos\\SDL_projects\\game1\\game1\\Game.cpp",
               "RelativeToolTip": "game1\\Game.cpp",
-              "ViewState": "AQIAAKYAAAAAAAAAAAAgwLQAAAACAAAA",
+              "ViewState": "AQIAAKIAAAAAAAAAAAAgwLQAAABNAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-11-09T00:49:52.567Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 6,
               "Title": "SpriteAnimation.cpp",
               "DocumentMoniker": "C:\\Users\\dento\\source\\repos\\SDL_projects\\game1\\game1\\SpriteAnimation.cpp",
               "RelativeDocumentMoniker": "game1\\SpriteAnimation.cpp",
               "ToolTip": "C:\\Users\\dento\\source\\repos\\SDL_projects\\game1\\game1\\SpriteAnimation.cpp",
               "RelativeToolTip": "game1\\SpriteAnimation.cpp",
-              "ViewState": "AQIAABIAAAAAAAAAAAAAACIAAAArAAAA",
+              "ViewState": "AQIAABEAAAAAAAAAAAAQwCIAAAAtAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-11-14T15:54:26.339Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 1,
               "Title": "main.cpp",
               "DocumentMoniker": "C:\\Users\\dento\\source\\repos\\SDL_projects\\game1\\game1\\main.cpp",
               "RelativeDocumentMoniker": "game1\\main.cpp",
               "ToolTip": "C:\\Users\\dento\\source\\repos\\SDL_projects\\game1\\game1\\main.cpp",
               "RelativeToolTip": "game1\\main.cpp",
-              "ViewState": "AQIAADsAAAAAAAAAAAAQwE0AAAAcAAAA",
+              "ViewState": "AQIAABoAAAAAAAAAAAAQwCUAAABTAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-11-11T19:45:46.168Z",
               "EditorCaption": ""

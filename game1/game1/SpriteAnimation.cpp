@@ -32,7 +32,7 @@ sprite* SpriteAnimation::getAnimationSprite(spriteAnimationID id)
 
 void SpriteAnimation::setFlip(SDL_RendererFlip flip)
 {
-	for (sprite s : spriteList) s.flip = flip;
+	for (int i = 0; i < spriteList.size(); i++) spriteList[i].flip = flip;
 }
 
 void SpriteAnimation::restartAnimation()

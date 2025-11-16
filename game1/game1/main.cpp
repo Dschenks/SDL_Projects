@@ -36,19 +36,13 @@ int main(int agrc, char* args[]) {
 		Player player;
 
 		player.setSpriteTexure(knight + "Knight-Idle.png", spriteFlags::SPRITE_STANDING);
-		player.setSpriteTexure(knight + "Knight-Walk.png", spriteFlags::SPRITE_RUNNING_LEFT);
 		player.setSpriteTexure(knight + "Knight-Walk.png", spriteFlags::SPRITE_RUNNING_RIGHT);
-		player.setSpriteTexure(knight + "Knight-Walk.png", spriteFlags::SPRITE_RUNNING_UP);
-		player.setSpriteTexure(knight + "Knight-Walk.png", spriteFlags::SPRITE_RUNNING_DOWN);
 		
 		fps idleFps = 10;
 		fps runningFps = 15;
 
 		player.setSpriteFps(spriteFlags::SPRITE_STANDING, idleFps);
-		player.setSpriteFps(spriteFlags::SPRITE_RUNNING_LEFT, runningFps);
 		player.setSpriteFps(spriteFlags::SPRITE_RUNNING_RIGHT, runningFps);
-		player.setSpriteFps(spriteFlags::SPRITE_RUNNING_UP, runningFps);
-		player.setSpriteFps(spriteFlags::SPRITE_RUNNING_DOWN, runningFps);
 
 		spriteModifier_t spriteMod = { 0 };
 		spriteMod.srcRectSet = true;
@@ -59,24 +53,9 @@ int main(int agrc, char* args[]) {
 			spriteMod.srcRect.x = 100 * i;
 			player.addSpriteFrame(spriteFlags::SPRITE_STANDING, spriteMod);
 		}
-		spriteMod.flipSet = true;
-		spriteMod.flip = SDL_FLIP_HORIZONTAL;
-		for (int i = 0; i < 6; i++) {
-			spriteMod.srcRect.x = 100 * i;
-			player.addSpriteFrame(spriteFlags::SPRITE_RUNNING_LEFT, spriteMod);
-		}
-		spriteMod.flipSet = false;
 		for (int i = 0; i < 6; i++) {
 			spriteMod.srcRect.x = 100 * i;
 			player.addSpriteFrame(spriteFlags::SPRITE_RUNNING_RIGHT, spriteMod);
-		}
-		for (int i = 0; i < 6; i++) {
-			spriteMod.srcRect.x = 100 * i;
-			player.addSpriteFrame(spriteFlags::SPRITE_RUNNING_UP, spriteMod);
-		}
-		for (int i = 0; i < 6; i++) {
-			spriteMod.srcRect.x = 100 * i;
-			player.addSpriteFrame(spriteFlags::SPRITE_RUNNING_DOWN, spriteMod);
 		}
 		player.setSpeed(5);
 		player.setScale(5);

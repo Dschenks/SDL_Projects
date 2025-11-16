@@ -1,6 +1,2 @@
-﻿  Game.cpp
-  Player.cpp
-  SpriteAnimation.cpp
-  main.cpp
-  Generating Code...
+﻿  Player.cpp
   game1.vcxproj -> C:\Users\dento\source\repos\SDL_projects\game1\x64\Debug\game1.exe

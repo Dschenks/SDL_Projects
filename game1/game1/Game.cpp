@@ -176,17 +176,21 @@ void Game::readInput()
 	}
 
 	const uint8_t* keyboardState = SDL_GetKeyboardState(NULL);
-	if (keyboardState[SDL_SCANCODE_LEFT] && !keyboardState[SDL_SCANCODE_RIGHT]) {
-		gameScreen->readInput(GameTypes::MOVE_DIR_LEFT);
-	}
-	if (keyboardState[SDL_SCANCODE_RIGHT] && !keyboardState[SDL_SCANCODE_LEFT]) {
-		gameScreen->readInput(GameTypes::MOVE_DIR_RIGHT);
-	}
+	/**
+	* @note If up/down handling is after left/right. character sprite will always face
+	* right or whatever the direction is of up/down.  even on diagnol movements.
+	*/
 	if (keyboardState[SDL_SCANCODE_DOWN] && !keyboardState[SDL_SCANCODE_UP]) {
 		gameScreen->readInput(GameTypes::MOVE_DIR_DOWN);
 	}
 	if (keyboardState[SDL_SCANCODE_UP] && !keyboardState[SDL_SCANCODE_DOWN]) {
 		gameScreen->readInput(GameTypes::MOVE_DIR_UP);
+	}
+	if (keyboardState[SDL_SCANCODE_LEFT] && !keyboardState[SDL_SCANCODE_RIGHT]) {
+		gameScreen->readInput(GameTypes::MOVE_DIR_LEFT);
+	}
+	if (keyboardState[SDL_SCANCODE_RIGHT] && !keyboardState[SDL_SCANCODE_LEFT]) {
+		gameScreen->readInput(GameTypes::MOVE_DIR_RIGHT);
 	}
 }
 

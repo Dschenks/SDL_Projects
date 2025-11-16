@@ -60,7 +60,9 @@ private:
 	GameTime* gameClock;
 
 	// Asset Sprite Variables
-	static const uint32_t spriteAssetSupport = SpriteTypes::SPRITE_ASSET_ALL_FLAGS;
+	static const uint32_t spriteAssetSupport = {
+		SpriteTypes::SPRITE_STANDING | SpriteTypes::SPRITE_RUNNING_RIGHT
+	};
 	static const uint8_t numSpriteAssetSupport;
 	static const uint8_t getNumSpriteAssetFlags(uint32_t flags) {
 		uint8_t c = 0;
@@ -77,6 +79,7 @@ private:
 	// Movement State Variables
 	GameTypes::move_dir_t lastMovement;
 	bool playerMoved;
+	bool facingRight;
 	GameTypes::movementSpeed_t playerSpeed;
 	GameTime* movementClock;
 
@@ -86,6 +89,13 @@ private:
 	SDL_Rect* srcRect;		// points to a source rectangle from an animation object
 	SDL_Rect destRect;		// sets the render point
 };
+
+
+
+
+
+
+
 
 /*
 int w, h;
