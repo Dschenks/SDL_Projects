@@ -135,6 +135,7 @@
     <ClCompile Include="Callback.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameErrors.cpp" />
+    <ClCompile Include="GameMap.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameObjectCallbacks.cpp" />
     <ClCompile Include="GameScreen.cpp" />
@@ -151,6 +152,7 @@
     <ClInclude Include="Callback.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameErrors.h" />
+    <ClInclude Include="GameMap.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectCallbacks.h" />
     <ClInclude Include="GameScreen.h" />

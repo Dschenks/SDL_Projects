@@ -198,18 +198,10 @@ int Player::loadMedia()
 {
 	for (int i = 0; i < numSpriteAssetSupport; i++) {
 		std::string path = spritePaths[i];
-
+		
 		if (path == "") continue;
 
-		bool dup = false;
-		for (int j = 0; j < i; j++) {
-			if (spritePaths[j] == path) {
-				spriteTextures[i] = spriteTextures[j];
-				dup = true;
-			}
-		}
-
-		if (!dup && (spriteTextures[i] = textureManager->loadAssetTexture(path)) == nullptr) {
+		if ((spriteTextures[i] = textureManager->loadAssetTexture(path)) == nullptr) {
 			printf("No asset texture found for Player Object %s sprite!\n", SpriteTypes::flagStrings[i].c_str());
 			return -1;
 		}

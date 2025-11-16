@@ -3,6 +3,7 @@
 #include <SDL_image.h>
 #include <string>
 #include "GameErrors.h"
+#include <vector>
 
 class TextureManager
 {
@@ -19,12 +20,15 @@ public:
 
 	SDL_Texture* loadAssetTexture(std::string fileName);
 private:
+	typedef struct {
+		std::string path;
+		SDL_Texture* texture;
+	} asset_t;
+
 	static SDL_Renderer* gRenderer;
 
 	std::string assetBasePath;
 
-	std::string* pathList;
-	SDL_Texture* textureList;
-	size_t textureListSize;
+	static std::vector<asset_t> assetList;
 };
 
