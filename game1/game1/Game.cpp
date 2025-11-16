@@ -145,7 +145,7 @@ void Game::readInput()
 	SDL_Keycode keyPressed = SDLK_UNKNOWN;
 
 	while (SDL_PollEvent(&event) != 0) {
-
+	//SDL_PollEvent(&event);
 		switch (event.type) {
 		case SDL_QUIT:
 			isRunning = false;
@@ -179,17 +179,31 @@ void Game::readInput()
 	/**
 	* @note If up/down handling is after left/right. character sprite will always face
 	* right or whatever the direction is of up/down.  even on diagnol movements.
+	* There is also issues with key ghosting on my HP laptop.  This means that certian combination
+	* of keys are not detected like right + down then right, right is not detected
 	*/
-	if (keyboardState[SDL_SCANCODE_DOWN] && !keyboardState[SDL_SCANCODE_UP]) {
+	//if (keyboardState[SDL_SCANCODE_DOWN] && !keyboardState[SDL_SCANCODE_UP]) {
+	//	gameScreen->readInput(GameTypes::MOVE_DIR_DOWN);
+	//}
+	//if (keyboardState[SDL_SCANCODE_UP] && !keyboardState[SDL_SCANCODE_DOWN]) {
+	//	gameScreen->readInput(GameTypes::MOVE_DIR_UP);
+	//}
+	//if (keyboardState[SDL_SCANCODE_LEFT] && !keyboardState[SDL_SCANCODE_RIGHT]) {
+	//	gameScreen->readInput(GameTypes::MOVE_DIR_LEFT);
+	//}
+	//if (keyboardState[SDL_SCANCODE_RIGHT] && !keyboardState[SDL_SCANCODE_LEFT]) {
+	//	gameScreen->readInput(GameTypes::MOVE_DIR_RIGHT);
+	//}
+	if (keyboardState[SDL_SCANCODE_S] && !keyboardState[SDL_SCANCODE_W]) {
 		gameScreen->readInput(GameTypes::MOVE_DIR_DOWN);
 	}
-	if (keyboardState[SDL_SCANCODE_UP] && !keyboardState[SDL_SCANCODE_DOWN]) {
+	if (keyboardState[SDL_SCANCODE_W] && !keyboardState[SDL_SCANCODE_S]) {
 		gameScreen->readInput(GameTypes::MOVE_DIR_UP);
 	}
-	if (keyboardState[SDL_SCANCODE_LEFT] && !keyboardState[SDL_SCANCODE_RIGHT]) {
+	if (keyboardState[SDL_SCANCODE_A] && !keyboardState[SDL_SCANCODE_D]) {
 		gameScreen->readInput(GameTypes::MOVE_DIR_LEFT);
 	}
-	if (keyboardState[SDL_SCANCODE_RIGHT] && !keyboardState[SDL_SCANCODE_LEFT]) {
+	if (keyboardState[SDL_SCANCODE_D] && !keyboardState[SDL_SCANCODE_A]) {
 		gameScreen->readInput(GameTypes::MOVE_DIR_RIGHT);
 	}
 }
