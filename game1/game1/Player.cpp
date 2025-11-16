@@ -3,10 +3,18 @@
 #include "GameObjectCallbacks.h"
 #include "GameTypes.h"
 #include <stdio.h>
+#include <cassert>
+
+const uint8_t Player::numSpriteAssetSupport = getNumSpriteAssetFlags(spriteAssetSupport);
 
 Player::Player() :
-	initCallback(this, &Player::init), closeCallback(this, &Player::close), tickCallback(this, &Player::tick), renderCallback(this, &Player::render), moveCallback(this, &Player::move)
+	initCallback(this, &Player::init), 
+	closeCallback(this, &Player::close), 
+	tickCallback(this, &Player::tick), 
+	renderCallback(this, &Player::render), 
+	moveCallback(this, &Player::move)
 {
+	// Initailize the game engine object callbacks
 	GameObjectCallbacks* callbacks = gameObj.getGameObjCallbacks();
 	callbacks->setInitCallback(initCallback);
 	callbacks->setCloseCallback(closeCallback);
@@ -14,75 +22,95 @@ Player::Player() :
 	callbacks->setRenderCallback(renderCallback);
 	callbacks->setMoveCallback(moveCallback);
 
-	srcRect = SDL_Rect();
-	destRect = SDL_Rect();
+	gRenderer = nullptr;
+	windowScreen = nullptr;
+	textureManager = nullptr;
+	gameClock = nullptr;
 
-	gRenderer = NULL;
-	gTexture = NULL;
-	textureManager = NULL;
-	windowScreen = NULL;
+	spritePaths = new std::string[numSpriteAssetSupport];
+	spriteTextures = new SDL_Texture * [numSpriteAssetSupport];
+	for (int i = 0; i < numSpriteAssetSupport; i++) spriteTextures[i] = nullptr;
+	spriteAnimations = new SpriteAnimation[numSpriteAssetSupport];
+
+	frameSprite = nullptr;
 
 	lastMovement = GameTypes::MOVE_DIR_NONE;
 	playerMoved = false;
+	playerSpeed.ftps = GameTypes::DEFAULT_PLAYER_SPEED;
+	playerSpeed.pps = GameTypes::speed2pps(playerSpeed.ftps);
+	movementClock = new GameTime;
+	movementClock->setFrameRate(playerSpeed.pps);
 
-	spriteStanding1Path = "";
-	spriteStanding2Path = "";
-	spriteRunningLeft1Path = "";
-	spriteRunningLeft2Path = "";
+	globalScaling = 1;
 
-	scaleUp = 1;
-
-	rotation = 0;
-	flipType = SDL_FLIP_NONE;
+	srcRect = nullptr;
+	destRect = { 0 };
 }
 
-void Player::setSprite(std::string path, uint32_t spriteAssetFlag)
+void Player::setSpriteTexure(std::string path, uint32_t spriteAssetFlag)
 {
-	switch (spriteAssetFlag) {
-	case SpriteTypes::SPRITE_STANDING_1:
-		spriteStanding1Path = path;
-		break;
-	case SpriteTypes::SPRITE_STANDING_2:
-		spriteStanding2Path = path;
-		break;
-	case SpriteTypes::SPRITE_RUNNING_LEFT_1:
-		spriteRunningLeft1Path = path;
-		break;
-	case SpriteTypes::SPRITE_RUNNING_LEFT_2:
-		spriteRunningLeft2Path = path;
-		break;
-	default: break;
-	}
+	if (!SpriteTypes::checkFlagSupported(spriteAssetSupport, spriteAssetFlag)) return; //return nullptr;
+
+	uint8_t spriteIndex = SpriteTypes::flag2index(spriteAssetSupport, spriteAssetFlag);
+
+	spritePaths[spriteIndex] = path;
+}
+
+void Player::addSpriteFrame(uint32_t spriteAssetFlag, spriteModifier_t spriteMod)
+{
+	uint8_t spriteIndex = SpriteTypes::flag2index(spriteAssetSupport, spriteAssetFlag);
+
+	spriteMod.gTextureSet = true;
+	spriteAnimations[spriteIndex].addAnimationSprite(spriteMod);
+}
+
+void Player::setSpriteFps(uint32_t spriteAssetFlag, fps fps)
+{
+	uint8_t spriteIndex = SpriteTypes::flag2index(spriteAssetSupport, spriteAssetFlag);
+	spriteAnimations[spriteIndex].setAnimationFps(fps);
+}
+
+void Player::setScale(int scale)
+{
+	globalScaling = scale;	// tied to speed
+	//setSpeed(playerSpeed.ftps);
+}
+
+void Player::setSpeed(GameTypes::ftps speed)
+{
+	playerSpeed.ftps = speed * globalScaling;
+	playerSpeed.pps = GameTypes::speed2pps(playerSpeed.ftps);
+	movementClock->setFrameRate(playerSpeed.pps);
 }
 
 void Player::init(WindowScreen* windowScreen, TextureManager* textureManager)
 {
-	//setGame(game);
+	// Setup display objects
 	setWindowScreen(windowScreen);
 	this->textureManager = textureManager;
 	setRenderer(textureManager->getRenderer());
 
-	if (loadMedia(spriteStanding1Path) < 0) {
+	if (loadMedia() < 0) {
 		printf("Failed to initialize Player Class!\n");
 		return;
 	}
 
-	int w, h;
-	if (SDL_QueryTexture(gTexture, NULL, NULL, &w, &h) < 0) {
-		GameErrors::SDL_PrintError("Could not query texture attributes!\n");
-		return;
-	}
-	srcRect.w = w * scaleUp;
-	srcRect.h = h * scaleUp;
-	srcRect.x = (windowScreen->getScreenWidth() / 2) - (w / 2);
-	srcRect.y = (windowScreen->getScreenHeight() / 2) - (h / 2);
+	uint8_t spriteIndex = SpriteTypes::flag2index(spriteAssetSupport, SpriteTypes::SPRITE_STANDING);
+	SpriteAnimation* spriteAction = &spriteAnimations[spriteIndex];
+	spriteAction->restartAnimation();
+	SDL_Rect srcRect = spriteAction->getAnimationSprite()->srcRect;
+	
+	destRect.w = srcRect.w * spriteAction->getAnimationSprite()->scale * globalScaling;
+	destRect.h = srcRect.h * spriteAction->getAnimationSprite()->scale * globalScaling;
+	destRect.x = (windowScreen->getScreenWidth() / 2) - (destRect.w / 2);
+	destRect.y = (windowScreen->getScreenHeight() / 2) - (destRect.h / 2);
 
-	destRect = srcRect;
+	initSprites();
 }
 
 void Player::close()
 {
-	SDL_DestroyTexture(gTexture);
+	//SDL_DestroyTexture(gTexture);
 }
 
 void Player::tick()
@@ -92,77 +120,104 @@ void Player::tick()
 
 void Player::render()
 {
-	static bool b = true;
 	if (playerMoved == false) {
-		if (lastMovement != GameTypes::MOVE_DIR_NONE) b = true;
-		lastMovement = GameTypes::MOVE_DIR_NONE;
+		uint8_t spriteIndex = SpriteTypes::flag2index(spriteAssetSupport, SpriteTypes::SPRITE_STANDING);
+		SpriteAnimation* spriteAction = &spriteAnimations[spriteIndex];
 		
-		if (b == true && spriteStanding1Path != "") {
-			loadMedia(spriteStanding1Path);
-			b = false;
-		}
-		else if (spriteStanding2Path != "") {
-			loadMedia(spriteStanding2Path);
-			b = true;
-		}
+		if (lastMovement != GameTypes::MOVE_DIR_NONE) spriteAction->restartAnimation();
+
+		spriteAction->tick(frameSprite);
+		lastMovement = GameTypes::MOVE_DIR_NONE;
 	}
 	playerMoved = false;
 
-	//SDL_RenderCopy(gRenderer, gTexture, NULL, &destRect);
-	SDL_RenderCopyEx(gRenderer, gTexture, NULL, &destRect, rotation, NULL, flipType);
+	assert(frameSprite != nullptr);
 
-	rotation = 0;
-	flipType = SDL_FLIP_NONE;
+	destRect.w = frameSprite->srcRect.w * frameSprite->scale * globalScaling;
+	destRect.h = frameSprite->srcRect.h * frameSprite->scale * globalScaling;
+
+	//SDL_RenderCopy(gRenderer, gTexture, NULL, &destRect);
+	SDL_RenderCopyEx(gRenderer, frameSprite->gTexture, &frameSprite->srcRect, &destRect, frameSprite->rotation, NULL, frameSprite->flip);
 }
 
 void Player::move(GameTypes::move_dir_t moveDir)
 {
-	static bool b = true;
+	SpriteAnimation* spriteAction = nullptr;
+	SpriteTypes::spriteAssetFlags_t spriteFlag;
+	int xMove = 0;
+	int yMove = 0;
+	int movAmt = globalScaling;
+
 	switch (moveDir) {
 	case GameTypes::MOVE_DIR_UP:
-		destRect.y -= 4;
+		spriteFlag = SpriteTypes::SPRITE_RUNNING_UP;
+		yMove -= movAmt;
 		break;
 	case GameTypes::MOVE_DIR_DOWN:
-		destRect.y += 4;
+		spriteFlag = SpriteTypes::SPRITE_RUNNING_DOWN;
+		yMove += movAmt;
 		break;
 	case GameTypes::MOVE_DIR_RIGHT:
-		if (b && lastMovement == GameTypes::MOVE_DIR_RIGHT) {
-			if (spriteRunningLeft2Path != "") loadMedia(spriteRunningLeft2Path);
-			b = false;
-		}
-		else {
-			if (spriteRunningLeft1Path != "") loadMedia(spriteRunningLeft1Path);
-			b = true;
-		}
-
-		destRect.x += (4 * scaleUp/4);
-		flipType = SDL_FLIP_HORIZONTAL;
-
+		spriteFlag = SpriteTypes::SPRITE_RUNNING_RIGHT;
+		xMove += movAmt;
 		break;
 	case GameTypes::MOVE_DIR_LEFT:
-		if (b && lastMovement == GameTypes::MOVE_DIR_LEFT) {
-			if (spriteRunningLeft2Path != "") loadMedia(spriteRunningLeft2Path);
-			b = false;
-		} else {
-			if (spriteRunningLeft1Path != "") loadMedia(spriteRunningLeft1Path);
-			b = true;
-		}
-
-		destRect.x -= (4 * scaleUp/4);
+		spriteFlag = SpriteTypes::SPRITE_RUNNING_LEFT;
+		xMove -= movAmt;
 		break;
-	default: break;
+	default: 
+		spriteFlag = SpriteTypes::SPRITE_STANDING;
+		break;
 	}
+	uint8_t spriteIndex = SpriteTypes::flag2index(spriteAssetSupport, spriteFlag);
+	spriteAction = &spriteAnimations[spriteIndex];
+
+	if (lastMovement == GameTypes::MOVE_DIR_NONE) {
+		movementClock->resetClock();
+		spriteAction->restartAnimation();
+	}
+
+	spriteAction->tick(frameSprite);
+
 	lastMovement = moveDir;
 	playerMoved = true;
+
+	if (!movementClock->checkNewFrameTick()) return;
+	destRect.x += xMove;
+	destRect.y += yMove;
+	movementClock->updateFrameTime();
 }
 
-int Player::loadMedia(std::string path)
+int Player::loadMedia()
 {
-	gTexture = textureManager->loadAssetTexture(path);
-	SDL_SetTextureColorMod(gTexture, 0xFF / 2, 0xFF, 0xFF);
-	if (gTexture == NULL) {
-		printf("Failed to load Player texture image!\n");
-		return -1;
+	for (int i = 0; i < numSpriteAssetSupport; i++) {
+		std::string path = spritePaths[i];
+
+		if (path == "") continue;
+
+		bool dup = false;
+		for (int j = 0; j < i; j++) {
+			if (spritePaths[j] == path) {
+				spriteTextures[i] = spriteTextures[j];
+				dup = true;
+			}
+		}
+
+		if (!dup && (spriteTextures[i] = textureManager->loadAssetTexture(path)) == nullptr) {
+			printf("No asset texture found for Player Object %s sprite!\n", SpriteTypes::flagStrings[i].c_str());
+			return -1;
+		}
+
+		size_t numSprites = spriteAnimations[i].getNumAnimationSprites();
+		for (int k = 0; k < numSprites; k++) spriteAnimations[i].getAnimationSprite(k)->gTexture = spriteTextures[i];
 	}
+
 	return 0;
+}
+
+void Player::initSprites()
+{
+	for (int i = 0; i < numSpriteAssetSupport; i++) {
+		spriteAnimations[i].init();
+	}
 }

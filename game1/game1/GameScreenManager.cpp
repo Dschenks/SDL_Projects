@@ -11,7 +11,7 @@ void GameScreenManager::setGame(Game* game)
 	this->game = game;
 }
 
-void GameScreenManager::addGameScreen(GameScreen* gameScreen)
+GameScreenManager::gameScreenID GameScreenManager::addGameScreen(GameScreen* gameScreen)
 {
 	GameScreen** t = new GameScreen*[numGameScreens + 1];
 	for (int i = 0; i < numGameScreens; i++) t[i] = gameScreens[i];
@@ -19,13 +19,16 @@ void GameScreenManager::addGameScreen(GameScreen* gameScreen)
 	gameScreens = t;
 	gameScreens[numGameScreens] = gameScreen;
 	numGameScreens++;
+	
+	return numGameScreens - 1;
 }
 
-void GameScreenManager::changeGameScreen(size_t index)
+int GameScreenManager::changeGameScreen(size_t index)
 {
 	if (index >= numGameScreens) {
-		printf("Cannot change screen to invalid index %d\n", index);
-		return;
+		printf("Cannot change screen to invalid index %llu\n", index);
+		return -1;
 	}
 	game->setCurrentScreen(gameScreens[index]);
+	return 0;
 }

@@ -5,12 +5,14 @@
 class GameScreenManager
 {
 public:
+	typedef size_t gameScreenID;
+
 	GameScreenManager();
 
 	void setGame(Game* game);
 
-	void addGameScreen(GameScreen* gameScreen);
-	void changeGameScreen(size_t index);
+	gameScreenID addGameScreen(GameScreen* gameScreen);
+	int changeGameScreen(size_t index);
 
 private:
 	Game* game;

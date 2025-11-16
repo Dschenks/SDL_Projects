@@ -4,20 +4,15 @@
 Game::Game()
 {
 	isRunning = false;
+
 	gWindow = NULL;
 	gRenderer = NULL;
-
-	gameStartTick = std::chrono::high_resolution_clock::time_point();
-	lastFrameTick = std::chrono::milliseconds();
-
-	frameRate = DEFAULT_FPS;
-	frameMs = fps2ms(frameRate);
+	textureManager = NULL;
 
 	WindowScreen().setScreenWidth(DEFAULT_SCREEN_WIDTH);
 	WindowScreen().setScreenHeight(DEFAULT_SCREEN_HEIGHT);
 
-	textureManager = NULL;
-
+	gameClock = nullptr;
 	gameScreen = NULL;
 }
 
@@ -40,7 +35,7 @@ int Game::_init_SDL()
 		return ret;
 	}
 
-	if (!SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1")) {
+	if (!SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "0")) {
 		printf("Warning: Linear texture filtering not enabled!");
 	}
 
@@ -87,8 +82,8 @@ int Game::init()
 	textureManager->setRenderer(gRenderer);
 
 	// Init frame clocks
-	gameStartTick = std::chrono::high_resolution_clock::now();
-	lastFrameTick = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - gameStartTick);
+	gameClock = new GameTime;
+	gameClock->init();
 
 	isRunning = true;
 
@@ -118,35 +113,15 @@ void Game::close()
 	SDL_Quit();
 }
 
-std::chrono::milliseconds Game::fps2ms(Game::fps fps)
-{
-	return std::chrono::milliseconds((1000 / fps));
-}
-
-void Game::setFrameRate(Game::fps fps)
-{
-	if (fps > 200) return;
-
-	frameRate = fps;
-	frameMs = fps2ms(fps);
-}
-
-std::chrono::milliseconds Game::getCurrentTick() const
-{
-	return std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - gameStartTick);
-	// return std::chrono::milliseconds();
-}
-
 bool Game::tick()
 {
 	if (!isRunning) return false;
 
-	std::chrono::milliseconds currentTick = getCurrentTick();
-	if ((currentTick - lastFrameTick) > frameMs) {
+	if (gameClock->checkNewFrameTick()) {
 		readInput();
 		update();
 		renderFrame();
-		lastFrameTick = currentTick;
+		gameClock->updateFrameTime();
 	}
 
 	return true;
@@ -154,12 +129,11 @@ bool Game::tick()
 
 void Game::mainLoop() {
 	while (isRunning) {
-		std::chrono::milliseconds currentTick = getCurrentTick();
-		if ((currentTick - lastFrameTick) > frameMs) {
+		if (gameClock->checkNewFrameTick()) {
 			readInput();
 			update();
 			renderFrame();
-			lastFrameTick = currentTick;
+			gameClock->updateFrameTime();
 		}
 	}
 }
@@ -167,37 +141,52 @@ void Game::mainLoop() {
 void Game::readInput()
 {
 	SDL_Event event;
-	
+
+	SDL_Keycode keyPressed = SDLK_UNKNOWN;
+
 	while (SDL_PollEvent(&event) != 0) {
-		SDL_Keycode keyPressed = SDLK_UNKNOWN;
 
 		switch (event.type) {
 		case SDL_QUIT:
 			isRunning = false;
 			break;
-		case SDL_KEYDOWN:
-		{
-			switch (event.key.keysym.sym) {
-			case SDLK_UP:
-				gameScreen->readInput(GameTypes::MOVE_DIR_UP);
-				break;
-			case SDLK_RIGHT:
-				gameScreen->readInput(GameTypes::MOVE_DIR_RIGHT);
-				break;
-			case SDLK_DOWN:
-				gameScreen->readInput(GameTypes::MOVE_DIR_DOWN);
-				break;
-			case SDLK_LEFT:
-				//keyPressed = (SDL_KeyCode)event.key.keysym.sym;
-				gameScreen->readInput(GameTypes::MOVE_DIR_LEFT);
-				break;
-			default: break;
-			}
-
-			break;
-		}
+			// This prooves unreliable for detecting key presses!
+			//case SDL_KEYDOWN:
+			//{
+			//	switch (event.key.keysym.sym) {
+			//	case SDLK_UP:
+			//		gameScreen->readInput(GameTypes::MOVE_DIR_UP);
+			//		break;
+			//	case SDLK_RIGHT:
+			//		gameScreen->readInput(GameTypes::MOVE_DIR_RIGHT);
+			//		break;
+			//	case SDLK_DOWN:
+			//		gameScreen->readInput(GameTypes::MOVE_DIR_DOWN);
+			//		break;
+			//	case SDLK_LEFT:
+			//		//keyPressed = (SDL_KeyCode)event.key.keysym.sym;
+			//		gameScreen->readInput(GameTypes::MOVE_DIR_LEFT);
+			//		break;
+			//	default: break;
+			//	}
+			//	break;
+			//}
 		default: break;
 		}
+	}
+
+	const uint8_t* keyboardState = SDL_GetKeyboardState(NULL);
+	if (keyboardState[SDL_SCANCODE_LEFT] && !keyboardState[SDL_SCANCODE_RIGHT]) {
+		gameScreen->readInput(GameTypes::MOVE_DIR_LEFT);
+	}
+	if (keyboardState[SDL_SCANCODE_RIGHT] && !keyboardState[SDL_SCANCODE_LEFT]) {
+		gameScreen->readInput(GameTypes::MOVE_DIR_RIGHT);
+	}
+	if (keyboardState[SDL_SCANCODE_DOWN] && !keyboardState[SDL_SCANCODE_UP]) {
+		gameScreen->readInput(GameTypes::MOVE_DIR_DOWN);
+	}
+	if (keyboardState[SDL_SCANCODE_UP] && !keyboardState[SDL_SCANCODE_DOWN]) {
+		gameScreen->readInput(GameTypes::MOVE_DIR_UP);
 	}
 }
 

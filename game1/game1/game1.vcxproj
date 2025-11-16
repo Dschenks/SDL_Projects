@@ -139,8 +139,11 @@
     <ClCompile Include="GameObjectCallbacks.cpp" />
     <ClCompile Include="GameScreen.cpp" />
     <ClCompile Include="GameScreenManager.cpp" />
+    <ClCompile Include="gameTime.cpp" />
+    <ClCompile Include="GameTypes.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="SpriteAnimation.cpp" />
     <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="WindowScreen.cpp" />
   </ItemGroup>
@@ -152,8 +155,10 @@
     <ClInclude Include="GameObjectCallbacks.h" />
     <ClInclude Include="GameScreen.h" />
     <ClInclude Include="GameScreenManager.h" />
+    <ClInclude Include="gameTime.h" />
     <ClInclude Include="GameTypes.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="SpriteAnimation.h" />
     <ClInclude Include="TextureManager.h" />
     <ClInclude Include="WindowScreen.h" />
   </ItemGroup>

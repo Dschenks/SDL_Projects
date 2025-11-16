@@ -5,7 +5,10 @@ C:\Users\dento\source\repos\SDL_projects\game1\game1\GameObject.cpp;C:\Users\den
 C:\Users\dento\source\repos\SDL_projects\game1\game1\GameObjectCallbacks.cpp;C:\Users\dento\source\repos\SDL_projects\game1\game1\x64\Debug\GameObjectCallbacks.obj
 C:\Users\dento\source\repos\SDL_projects\game1\game1\GameScreen.cpp;C:\Users\dento\source\repos\SDL_projects\game1\game1\x64\Debug\GameScreen.obj
 C:\Users\dento\source\repos\SDL_projects\game1\game1\GameScreenManager.cpp;C:\Users\dento\source\repos\SDL_projects\game1\game1\x64\Debug\GameScreenManager.obj
+C:\Users\dento\source\repos\SDL_projects\game1\game1\gameTime.cpp;C:\Users\dento\source\repos\SDL_projects\game1\game1\x64\Debug\gameTime.obj
+C:\Users\dento\source\repos\SDL_projects\game1\game1\GameTypes.cpp;C:\Users\dento\source\repos\SDL_projects\game1\game1\x64\Debug\GameTypes.obj
 C:\Users\dento\source\repos\SDL_projects\game1\game1\main.cpp;C:\Users\dento\source\repos\SDL_projects\game1\game1\x64\Debug\main.obj
 C:\Users\dento\source\repos\SDL_projects\game1\game1\Player.cpp;C:\Users\dento\source\repos\SDL_projects\game1\game1\x64\Debug\Player.obj
+C:\Users\dento\source\repos\SDL_projects\game1\game1\SpriteAnimation.cpp;C:\Users\dento\source\repos\SDL_projects\game1\game1\x64\Debug\SpriteAnimation.obj
 C:\Users\dento\source\repos\SDL_projects\game1\game1\TextureManager.cpp;C:\Users\dento\source\repos\SDL_projects\game1\game1\x64\Debug\TextureManager.obj
 C:\Users\dento\source\repos\SDL_projects\game1\game1\WindowScreen.cpp;C:\Users\dento\source\repos\SDL_projects\game1\game1\x64\Debug\WindowScreen.obj
